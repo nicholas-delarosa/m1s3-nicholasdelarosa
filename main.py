@@ -7,6 +7,7 @@ from servicios import (
     eliminar_producto,
     calcular_estadisticas
 )
+from archivos import guardar_csv
 
 inventario = []
 
@@ -25,7 +26,8 @@ while True:
     print("4. Actualizar producto")
     print("5. Eliminar producto")
     print("6. Estadísticas")
-    print("7. Salir")
+    print("7. Guardar CSV")
+    print("8. Salir")
 
     opcion = input("Opción: ")
 
@@ -57,6 +59,10 @@ while True:
         calcular_estadisticas(inventario)
 
     elif opcion == "7":
+        ruta = input("Ruta del archivo: ")
+        guardar_csv(inventario, ruta)
+
+    elif opcion == "8":
         break
 
     pausar()

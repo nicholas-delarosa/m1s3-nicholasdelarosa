@@ -7,7 +7,7 @@ from servicios import (
     eliminar_producto,
     calcular_estadisticas
 )
-from archivos import guardar_csv
+from archivos import guardar_csv, cargar_csv
 
 inventario = []
 
@@ -27,7 +27,8 @@ while True:
     print("5. Eliminar producto")
     print("6. Estadísticas")
     print("7. Guardar CSV")
-    print("8. Salir")
+    print("8. Cargar CSV")
+    print("9. Salir")
 
     opcion = input("Opción: ")
 
@@ -63,6 +64,24 @@ while True:
         guardar_csv(inventario, ruta)
 
     elif opcion == "8":
+        ruta = input("Ruta del archivo: ")
+        nuevos = cargar_csv(ruta)
+
+        if nuevos:
+            decision = input("¿Sobrescribir inventario? (S/N): ").lower()
+
+            if decision == "s":
+                inventario = nuevos
+            else:
+                for p in nuevos:
+                    existente = buscar_producto(inventario, p["nombre"])
+                    if existente:
+                        existente["cantidad"] += p["cantidad"]
+                        existente["precio"] = p["precio"]
+                    else:
+                        inventario.append(p)
+
+    elif opcion == "9":
         break
 
     pausar()

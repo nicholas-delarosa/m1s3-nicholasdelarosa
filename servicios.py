@@ -37,13 +37,17 @@ def eliminar_producto(inventario, nombre):
     return False
 
 def calcular_estadisticas(inventario):
-    """Calcula estadísticas del inventario."""
+    """Calcula estadísticas completas del inventario."""
     if not inventario:
         print("Inventario vacío")
         return
 
     unidades_totales = sum(p["cantidad"] for p in inventario)
     valor_total = sum(p["precio"] * p["cantidad"] for p in inventario)
+    producto_mas_caro = max(inventario, key=lambda p: p["precio"])
+    producto_mayor_stock = max(inventario, key=lambda p: p["cantidad"])
 
     print("Unidades totales:", unidades_totales)
     print("Valor total:", valor_total)
+    print("Producto más caro:", producto_mas_caro["nombre"], producto_mas_caro["precio"])
+    print("Mayor stock:", producto_mayor_stock["nombre"], producto_mayor_stock["cantidad"])
